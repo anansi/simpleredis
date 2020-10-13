@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"bufio"
+	"local/protocol"
 )
 
 
@@ -15,7 +16,13 @@ func main() {
 	if err != nil {
 		// handle error
 	}
-	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
+ 
+
+	message := "hello"
+	// call the protocol to encode message into bin
+	protocol.Hello(message)
+
+	fmt.Fprintf(conn, message)
 	status, err := bufio.NewReader(conn).ReadString('\n')
 	// ...
 	fmt.Println(status)
