@@ -11,7 +11,7 @@ func main() {
 
 	fmt.Println("Client side Hello, World!")
 
-	conn, err := net.Dial("tcp", "localhost:8080")
+	conn, err := net.Dial("tcp", "localhost:5566")
 	if err != nil {
 		// handle error
 	}
