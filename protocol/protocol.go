@@ -1,32 +1,24 @@
 package protocol
 
-import "fmt"
+// note byte is an alias for uint8
 
+// Encode returns the required binary data for a word to send across our network call
+// the meaning of 'word' is: a space separated keyword used in our API
+func Encode(word string) []byte {
 
+	// determine the length of the word, as this is the first 2 bytes
+	wordLength := len(word)
+	packetLength := wordLength + 2
 
-// Encode returns the required binary data to send across our network call
-func Encode(message string) string {
-    
-    // determine the length of the message, as this is the first 2 bytes
-    length := len(message)
-    fmt.Println("length: ", length)
-    length_bytes := fmt.Sprintf("%08b", byte(length))
-    fmt.Println("length_bytes: ", length_bytes)
-    // initiaise the output binary value as the length of the message, in binary
-    // output := ""
-	
-	fmt.Println("about to Encode: ", message)
+	var outputBytes = make([]byte, packetLength)
+	outputBytes[0], outputBytes[1] = uint8(wordLength>>8), uint8(wordLength&0xff)
 
-	for i := 0; i < len(message); i++ {
-		fmt.Println(i, ": ", message[i], "(decimal)")
+	for i := 0; i < len(word); i++ {
 
-		char := message[i]
-		byte := fmt.Sprintf("%08b", byte(char))
-		fmt.Println(i, ": ", byte, "(byte)")
+		char := word[i]
+		outputBytes[i+2] = byte(char) // the index is +2 as the first 2 bytes are for the word length
+
 	}
-	
 
-
-    result := fmt.Sprintf("Hi, %v. Welcome!", message)
-    return result
+	return outputBytes
 }
