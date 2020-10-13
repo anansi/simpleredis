@@ -18,7 +18,7 @@ func main() {
 	}
  
 
-	message := "hello"
+	message := "hi there"
 	// call the protocol to encode message into bin
 	protocol.Encode(message)
 
