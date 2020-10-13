@@ -11,7 +11,7 @@ func handleConnection(conn net.Conn) {
 
 func main() {
 
-	fmt.Println("Hello, World!")
+	fmt.Println("Started the server")
 
 	ln, err := net.Listen("tcp", ":5566")
 	if err != nil {

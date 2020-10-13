@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	fmt.Println("Client side Hello, World!")
+	fmt.Println("Started the client")
 
 	conn, err := net.Dial("tcp", "localhost:5566")
 	if err != nil {
