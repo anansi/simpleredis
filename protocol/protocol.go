@@ -2,9 +2,9 @@ package protocol
 
 import "fmt"
 
-// Hello returns a greeting for the named person.
-func Hello(name string) string {
+// Encode returns the required binary data to send across our network call
+func Encode(message string) string {
     // Return a greeting that embeds the name in a message.
-    message := fmt.Sprintf("Hi, %v. Welcome!", name)
-    return message
+    result := fmt.Sprintf("Hi, %v. Welcome!", message)
+    return result
 }

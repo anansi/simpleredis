@@ -20,7 +20,7 @@ func main() {
 
 	message := "hello"
 	// call the protocol to encode message into bin
-	protocol.Hello(message)
+	protocol.Encode(message)
 
 	fmt.Fprintf(conn, message)
 	status, err := bufio.NewReader(conn).ReadString('\n')
