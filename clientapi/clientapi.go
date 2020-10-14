@@ -9,7 +9,7 @@ import (
 const get = "GET"
 const set = "SET"
 
-// TODO implement this properly
+// sendNetworkRequest is a private function for sending data to the server
 func sendNetworkRequest(data []byte) string {
 	conn, err := net.Dial("tcp", "localhost:5566")
 	defer conn.Close()
@@ -29,10 +29,10 @@ func sendNetworkRequest(data []byte) string {
 }
 
 // ExeuteCmd allows a client to execute any command supplied with its parameters.
-// It returns the relivant response from the API call or protocol command
+// It returns the relivant response from the API call 
 func ExecuteCmd(cmd string, params []string) string {
 
-	switch strings.ToUpper(cmd) { // ToUpper makes the user input
+	switch strings.ToUpper(cmd) { // ToUpper makes the user input case insensitive
 	case "GET":
 		return Get(params[0])
 	case "SET":
