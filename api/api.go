@@ -1,5 +1,11 @@
 package api
 
+import (
+	"bufio"
+	"fmt"
+	"net"
+)
+
 // note byte is an alias for uint8
 
 // Encode returns the required binary data for a word to send across our network call
@@ -21,6 +27,21 @@ func Encode(word string) []byte {
 	}
 
 	return outputBytes
+}
+
+// TODO implement this properly
+func sendNetworkRequest() {
+
+	conn, err := net.Dial("tcp", "localhost:5566")
+	if err != nil {
+		// handle error
+	}
+
+	fmt.Fprintf(conn, "TODO implement networking via protocol")
+	status, err := bufio.NewReader(conn).ReadString('\n')
+	// ...
+	fmt.Println(status)
+
 }
 
 // Get allows a Client to ask the server to retreive the value of a key in the simpleredis datastore
