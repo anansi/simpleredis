@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/binary"
 	"net"
-	"protocol"
+	"simpleredis.task/protocol"
 	"strings"
 )
 

@@ -1,9 +1,10 @@
 package main
 
 import (
-	"api"
 	"fmt"
 	"net"
+
+	"simpleredis.task/api"
 )
 
 func handleConnection(conn net.Conn) {
