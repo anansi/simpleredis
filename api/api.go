@@ -22,3 +22,10 @@ func Encode(word string) []byte {
 
 	return outputBytes
 }
+
+// Get allows a Client to ask the server to retreive the value of a key in the simpleredis datastore
+func Get(key string) string {
+
+	return "Get value for " + key
+
+}

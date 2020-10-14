@@ -11,9 +11,9 @@ func main() {
 
 	fmt.Println("Started the client")
 
-	message := "hi there"
+	keyToGet := "greeting"
 	// call the protocol to encode message into bin
-	var bin = api.Encode(message)
+	var bin = api.Get(keyToGet)
 	fmt.Println(bin)
 	return
 
@@ -22,7 +22,7 @@ func main() {
 		// handle error
 	}
 
-	fmt.Fprintf(conn, message)
+	fmt.Fprintf(conn, "TODO implement networking via protocol")
 	status, err := bufio.NewReader(conn).ReadString('\n')
 	// ...
 	fmt.Println(status)
