@@ -1,28 +1,25 @@
 package main
 
 import (
+	"api"
 	"fmt"
 	"net"
 )
 
-var m map[string]string
-
 func handleConnection(conn net.Conn) {
-	fmt.Println("handling listening to Connection", conn)
 	defer conn.Close()
-	buffer := make([]byte, 24)
+	buffer := make([]byte, 4096)
 	for {
-		n, err := conn.Read(buffer)
-
-		if n > 0 {
-			// fmt.Println(message)
+		_, err := conn.Read(buffer)
+		if err != nil {
+			fmt.Println("Read error: ", err)
 		}
 
-		var resp_string = m["greeting"]
-		_, err = conn.Write([]byte(resp_string))
+		responseData := api.HandleIncomingNetworkRequest(buffer)
+		_, err = conn.Write(responseData)
 
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("Write error: ", err)
 			return
 		}
 	}
@@ -34,8 +31,6 @@ func main() {
 	fmt.Println("Started the server")
 
 	// TODO implement a more friendly datastore for other developers to find understandable
-	m = make(map[string]string)
-	m["greeting"] = "howzit"
 
 	ln, err := net.Listen("tcp", ":5566")
 	if err != nil {
