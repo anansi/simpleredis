@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"local/protocol"
+	"local/api"
 	"net"
 )
 
@@ -13,7 +13,7 @@ func main() {
 
 	message := "hi there"
 	// call the protocol to encode message into bin
-	var bin = protocol.Encode(message)
+	var bin = api.Encode(message)
 	fmt.Println(bin)
 	return
 
