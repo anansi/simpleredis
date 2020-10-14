@@ -1,4 +1,4 @@
-module simpleredis.task/api
+module simpleredis.task/serverapi
 
 go 1.15
 

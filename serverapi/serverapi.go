@@ -1,10 +1,8 @@
-package api
+package serverapi
 
 import (
 	"encoding/binary"
-	"net"
 	"simpleredis.task/protocol"
-	"strings"
 )
 
 const get = "GET"
@@ -32,24 +30,6 @@ func encode(word string) []byte {
 	return outputBytes
 }
 
-// TODO implement this properly
-func sendNetworkRequest(data []byte) string {
-	conn, err := net.Dial("tcp", "localhost:5566")
-	defer conn.Close()
-
-	if err != nil {
-		// handle error
-	}
-
-	// write the data to the connection
-	_, err = conn.Write(data)
-
-	reply := make([]byte, 2048)
-	conn.Read(reply)
-
-	return string(reply)
-
-}
 
 func parseCommandFromData(data []byte) (string, uint16) {
 
@@ -116,58 +96,4 @@ func HandleIncomingNetworkRequest(data []byte) []byte {
 	var datastoreData = encode(datastoreResponse)
 	// send the data back to the client
 	return datastoreData
-}
-
-// ExeuteCmd allows a client to execute any command supplied with its parameters.
-// It returns the relivant response from the API call or protocol command
-func ExecuteCmd(cmd string, params []string) string {
-
-	switch strings.ToUpper(cmd) { // ToUpper makes the user input
-	case "GET":
-		return Get(params[0])
-	case "SET":
-		return Set(params[0], params[1])
-	}
-
-	return "provided unsupported command"
-}
-
-// Get allows a Client to ask the server to retreive the value of a key in the simpleredis datastore
-// Get could be accessed by the client via the ExecuteCmd function above
-// Get is made Public, for convinience for the client.
-func Get(key string) string {
-
-	// TODO encode the words for the relivant Get command
-	getWord := encode(get)
-	keyWord := encode(key)
-
-	concat := append(getWord, keyWord...)
-
-	// TODO send the command to the server
-	// TODO get the response from the server
-	response := sendNetworkRequest(concat)
-
-	// TODO return the value obtained, as required
-	return response
-
-}
-
-// Set lets the client set a value in the simpleredis datastore
-// Set is made Public, for convinience for the client
-func Set(key, value string) string {
-
-	// TODO encode the words for the relivant Set command
-	setWord := encode(set)
-	keyWord := encode(key)
-	valueWord := encode(value)
-
-	concat := append(append(setWord, keyWord...), valueWord...)
-
-	// TODO send the command to the server
-	// TODO get the response from the server
-	response := sendNetworkRequest(concat)
-
-	// TODO return the value obtained, as required
-	return response
-
 }

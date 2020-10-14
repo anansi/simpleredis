@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"simpleredis.task/api"
+	"simpleredis.task/serverapi"
 )
 
 func handleConnection(conn net.Conn) {
@@ -13,14 +13,13 @@ func handleConnection(conn net.Conn) {
 	for {
 		_, err := conn.Read(buffer)
 		if err != nil {
-			fmt.Println("Read error: ", err)
+			return
 		}
 
-		responseData := api.HandleIncomingNetworkRequest(buffer)
+		responseData := serverapi.HandleIncomingNetworkRequest(buffer)
 		_, err = conn.Write(responseData)
 
 		if err != nil {
-			fmt.Println("Write error: ", err)
 			return
 		}
 	}
