@@ -47,6 +47,13 @@ func sendNetworkRequest() {
 // Get allows a Client to ask the server to retreive the value of a key in the simpleredis datastore
 func Get(key string) string {
 
+	// TODO encode the words for the relivant Get command
+
+	// TODO send the command to the server
+
+	// TODO get the response from the server
+
+	// TODO return the value obtained, as required
 	return "Get value for " + key
 
 }
