@@ -10,7 +10,7 @@ import (
 
 // Encode returns the required binary data for a word to send across our network call
 // the meaning of 'word' is: a space separated keyword used in our API
-func Encode(word string) []byte {
+func encode(word string) []byte {
 
 	// determine the length of the word, as this is the first 2 bytes
 	wordLength := len(word)
