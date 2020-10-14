@@ -2,30 +2,27 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net"
 )
 
+var m map[string]string
+
 func handleConnection(conn net.Conn) {
-	fmt.Println("handling Connection", conn)
+	fmt.Println("handling listening to Connection", conn)
 	defer conn.Close()
-	buffer := make([]byte, 1024)
+	buffer := make([]byte, 24)
 	for {
 		n, err := conn.Read(buffer)
-		message := string(buffer[:n])
-
-		fmt.Println(buffer)
-		if message == "/quit" {
-			fmt.Println("quit command received. Bye.")
-			return
-		}
 
 		if n > 0 {
-			fmt.Println(message)
+			// fmt.Println(message)
 		}
 
+		var resp_string = m["greeting"]
+		_, err = conn.Write([]byte(resp_string))
+
 		if err != nil {
-			log.Println(err)
+			fmt.Println(err)
 			return
 		}
 	}
@@ -35,6 +32,10 @@ func handleConnection(conn net.Conn) {
 func main() {
 
 	fmt.Println("Started the server")
+
+	// TODO implement a more friendly datastore for other developers to find understandable
+	m = make(map[string]string)
+	m["greeting"] = "howzit"
 
 	ln, err := net.Listen("tcp", ":5566")
 	if err != nil {
