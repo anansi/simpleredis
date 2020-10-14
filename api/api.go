@@ -1,7 +1,6 @@
 package api
 
 import (
-	"bufio"
 	"fmt"
 	"net"
 )
@@ -32,9 +31,11 @@ func encode(word string) []byte {
 }
 
 // TODO implement this properly
-func sendNetworkRequest(data []byte) {
-
+func sendNetworkRequest(data []byte) string {
 	conn, err := net.Dial("tcp", "localhost:5566")
+	defer fmt.Println("closing client connection, expect broken pipe")
+	defer conn.Close()
+
 	if err != nil {
 		// handle error
 	}
@@ -42,9 +43,11 @@ func sendNetworkRequest(data []byte) {
 	// write the data to the connection
 	_, err = conn.Write(data)
 
-	status, err := bufio.NewReader(conn).ReadString('\n')
+	reply := make([]byte, 24)
+	conn.Read(reply)
+	fmt.Println("from server: ", string(reply))
 
-	fmt.Println(status)
+	return string(reply)
 
 }
 
@@ -56,16 +59,13 @@ func Get(key string) string {
 	keyWord := encode(key)
 
 	concat := append(getWord, keyWord...)
-	fmt.Println(getWord)
-	fmt.Println(keyWord)
-	// fmt.Println(concat)
 
 	// TODO send the command to the server
-	sendNetworkRequest(concat)
+	response := sendNetworkRequest(concat)
 
 	// TODO get the response from the server
 
 	// TODO return the value obtained, as required
-	return "Get value for " + key
+	return response
 
 }
