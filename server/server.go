@@ -14,6 +14,7 @@ func handleConnection(conn net.Conn) {
 		n, err := conn.Read(buffer)
 		message := string(buffer[:n])
 
+		fmt.Println(buffer)
 		if message == "/quit" {
 			fmt.Println("quit command received. Bye.")
 			return

@@ -6,6 +6,8 @@ import (
 	"net"
 )
 
+const get = "GET"
+
 // note byte is an alias for uint8
 
 // Encode returns the required binary data for a word to send across our network call
@@ -30,16 +32,18 @@ func encode(word string) []byte {
 }
 
 // TODO implement this properly
-func sendNetworkRequest() {
+func sendNetworkRequest(data []byte) {
 
 	conn, err := net.Dial("tcp", "localhost:5566")
 	if err != nil {
 		// handle error
 	}
 
-	fmt.Fprintf(conn, "TODO implement networking via protocol")
+	// write the data to the connection
+	_, err = conn.Write(data)
+
 	status, err := bufio.NewReader(conn).ReadString('\n')
-	// ...
+
 	fmt.Println(status)
 
 }
@@ -48,8 +52,16 @@ func sendNetworkRequest() {
 func Get(key string) string {
 
 	// TODO encode the words for the relivant Get command
+	getWord := encode(get)
+	keyWord := encode(key)
+
+	concat := append(getWord, keyWord...)
+	fmt.Println(getWord)
+	fmt.Println(keyWord)
+	// fmt.Println(concat)
 
 	// TODO send the command to the server
+	sendNetworkRequest(concat)
 
 	// TODO get the response from the server
 
