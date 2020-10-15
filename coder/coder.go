@@ -76,7 +76,7 @@ func parseParameterData(data []byte) []string {
 		// add the new token to the slice to return
 		cmdParameterList = append(cmdParameterList, nextTokenValue)
 
-		nextByteIndex += nextTokenStartIndex + tokenLength // the end of the range for the next token
+		nextByteIndex = nextTokenStartIndex + tokenLength // the end of the range for the next token
 
 	}
 
