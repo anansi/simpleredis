@@ -15,7 +15,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	// call the api to contact the server
+	// access command line parameter strings
+	var cmd string = os.Args[1]
+	var params []string = os.Args[2:]
+	
+	// call the clientapi to contact the server
 	var response = clientapi.ExecuteCmd(cmd, params)
 	fmt.Println(response)
 
