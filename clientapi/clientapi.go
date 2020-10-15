@@ -1,7 +1,6 @@
 package clientapi
 
 import (
-	"os"
 	"log"
 	"net"
 	"strings"
@@ -22,21 +21,18 @@ func ExecuteCmd(cmd string, params []string) string {
 	switch strings.ToUpper(cmd) { // ToUpper makes the user input case insensitive
 	case "GET":
 		if len(params) != 1	{
-			log.Printf("Error: GET cmd requires 1 parameter, but %d were provided. exiting",len(params))
-			os.Exit(1)
+			log.Fatalf("Error: GET cmd requires 1 parameter, but %d were provided. exiting", len(params))
 		}
 		return Get(params[0])
 	case "SET":
 		if len(params) != 2	{
-			log.Println("Error: SET cmd requires 2 parameters, but",len(params),"parameter(s) were provided. exiting")
-			os.Exit(1)
+			log.Fatal("Error: SET cmd requires 2 parameters, but ",len(params)," parameter(s) were provided. exiting")
 		}
 		return Set(params[0], params[1])
 	
 	}
 
-	log.Println("Error: Provided unsupported command: ", strings.ToUpper(cmd))
-	os.Exit(1)
+	log.Fatal("Error: Provided unsupported command: ", strings.ToUpper(cmd))
 	return ""// Go requires me to end this function with a return. 
 }
 
@@ -91,8 +87,7 @@ func sendNetworkRequest(data []byte) []byte {
 	conn, err := net.Dial(networkProtocol, serverIpPort)
 	if err != nil {
 		// handle error
-		log.Printf("Error: Server is not running, is it running at %s?",serverIpPort)
-		os.Exit(1)
+		log.Fatalf("Error: Server is not running, is it running at %s?",serverIpPort)
 	}
 	defer conn.Close() // final call of this function
 
