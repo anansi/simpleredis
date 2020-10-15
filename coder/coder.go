@@ -27,6 +27,15 @@ func Encode(word string) []byte {
 }
 
 
+func Decode(data []byte) []string	{
+
+	// Note words include GET, SET, and relivant parameters
+	var words []string = parseParameterData(data)
+
+	return words
+}
+
+
 func parseCommandFromData(data []byte) (string, uint16) {
 
 	// get the length of the initial command token (first 2 bytes)
@@ -74,11 +83,3 @@ func parseParameterData(data []byte) []string {
 	return cmdParameterList
 }
 
-
-func Decode(data []byte) []string	{
-
-	// Note words include GET, SET, and relivant parameters
-	var words []string = parseParameterData(data)
-
-	return words
-}
