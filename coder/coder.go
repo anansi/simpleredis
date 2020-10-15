@@ -35,21 +35,6 @@ func Decode(data []byte) []string	{
 	return words
 }
 
-
-func parseCommandFromData(data []byte) (string, uint16) {
-
-	// get the length of the initial command token (first 2 bytes)
-	protocolCmdLengthBytes := data[:2]
-	protocolCmdLength := binary.BigEndian.Uint16(protocolCmdLengthBytes)
-
-	// get the command token from the data
-	commandBytes := data[2 : 2+protocolCmdLength]
-
-	return string(commandBytes), protocolCmdLength
-
-}
-
-
 func parseDataForWords(data []byte) []string {
 
 	var cmdParameterList []string = make([]string, 0)
