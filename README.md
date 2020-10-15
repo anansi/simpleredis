@@ -18,8 +18,9 @@ Rob Pike: "Don't overdo it: Sometimes all you need is a reference counter" - min
 ## Final notes
 
 I implemented this in a repo, which can show you some timestamps. I was doing this task concurrently with other 
-tasks in my life, and also learning Go. Don't be too critical. 
+tasks in my life, and also learning Go. Please don't be too critical. 
 
+Thanks for this career opportunity.
 
 # "Simple Redis"
 
