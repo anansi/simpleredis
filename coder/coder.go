@@ -40,14 +40,14 @@ func parseDataForWords(data []byte) []string {
 	var cmdParameterList []string = make([]string, 0)
 
 	nextByteIndex := uint16(0)
-	// loop until there are no more token to parse. This is when the expected token length parameter is 00
+	// loop until there are no more words to parse. This is when the expected word length parameter is 00
 	for {
 
 		// get the next word from the data. We know each word data starts with a 2 byte length field
 		nextWordLengthData := data[nextByteIndex : nextByteIndex+2]
 		wordLength := binary.BigEndian.Uint16(nextWordLengthData)
 
-		// if tokenLength is 00, the data has stopped
+		// if wordLength is 00, the data has stopped
 		if wordLength == 0 {
 			// break out of the for loop, no more parameters according to protocol
 			break
@@ -55,11 +55,11 @@ func parseDataForWords(data []byte) []string {
 
 		nextWordStartIndex := nextByteIndex + 2
 		nextWordEndIndex := nextWordStartIndex + wordLength
-		nextTokenData := data[nextWordStartIndex:nextWordEndIndex]
-		nextTokenValue := string(nextTokenData)
+		nextWordData := data[nextWordStartIndex:nextWordEndIndex]
+		nextWordValue := string(nextWordData)
 
-		// add the new token to the slice to return
-		cmdParameterList = append(cmdParameterList, nextTokenValue)
+		// add the new word to the slice to return
+		cmdParameterList = append(cmdParameterList, nextWordValue)
 
 		nextByteIndex = nextWordStartIndex + wordLength // the end of the range for the next word
 
