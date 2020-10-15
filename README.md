@@ -1,3 +1,26 @@
+# README update from Julian
+
+## Architecture
+
+I tried to separate the modules in the design that different engineers can focus on different parts of the project 
+in different modules. Different files allow for less merge conflicts and more modular focus for the developer.
+
+The coder package - I could have named it codex, but decided to send this to you sooner rather than later.
+
+I hope I didn't do the binary API part of the task incorrectly, I didn't need to use the spew debugger.
+
+## Future Work
+
+I saw the video on concurrency from Rob Pike - https://www.youtube.com/watch?v=f6kdp27TYZs
+I considered using the cool looking chan concurrency technique, but in the interest of time and the words of 
+Rob Pike: "Don't overdo it: Sometimes all you need is a reference counter" - minute 38:47
+
+## Final notes
+
+I implemented this in a repo, which can show you some timestamps. I was doing this task concurrently with other 
+tasks in my life, and also learning Go. Don't be too critical. 
+
+
 # "Simple Redis"
 
 ## Abstract
