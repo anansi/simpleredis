@@ -1,29 +1,47 @@
 package protocol
 
-// the datastore
-var datastore map[string]string
+// This package houses the datastore and the protocol functions to SET or GET from the datastore, concurrently.
 
-const OkResponse = "OK"
+import	(
+	"sync"
+)
+
+// The SafeMap type with a Mutex.
+type SafeMap struct {
+	datastore   map[string]string
+	mux sync.Mutex
+}
+
+// the safe map datastore var
+var safeMap SafeMap
+
+const (	
+	OkResponse = "OK"
+)
 
 func init() {
 
-	// initialise a datastore, a map in this case
-	datastore = make(map[string]string)
+	// initialise a SafeMap datastore, a map in this case
+	datastore := make(map[string]string)
 	datastore["greeting"] = "howzit" // from me
+	safeMap = SafeMap{datastore: datastore}
 
 }
 
 func set(key, value string) string {
-
-	datastore[key] = value
+	safeMap.mux.Lock()
+	safeMap.datastore[key] = value	
+	safeMap.mux.Unlock()
 	return OkResponse
 }
 
 func get(key string) string {
 
 	// Note the datastore was initialised with a value in the init function
-	value, _ := datastore[key]
 
+	safeMap.mux.Lock()	
+	value, _ := safeMap.datastore[key]
+	safeMap.mux.Unlock()
 	return value
 
 }
